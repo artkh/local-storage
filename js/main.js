@@ -7,12 +7,18 @@ window.addEventListener('DOMContentLoaded', function() {
 
     if (localStorage.getItem('isChecked') === 'true') {
         checkbox.checked = true;
+        name.value = localStorage.getItem('name');
+        pass.value = localStorage.getItem('password');
+    } else {
+        localStorage.removeItem('name');
+        localStorage.removeItem('password');
+        localStorage.removeItem('isChecked');
     }
 
     checkbox.addEventListener('click', function() {
         localStorage.setItem('isChecked', true);
         if (checkbox.checked == false) {
-            localStorage.removeItem('isChecked');
+            localStorage.setItem('isChecked', false);
         }
     });
 
@@ -24,11 +30,14 @@ window.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('password', this.value);
     };
 
-    if (localStorage.getItem('name').length > 0 ||
-        localStorage.getItem('password').length > 0) {
-        name.value = localStorage.getItem('name');
-        pass.value = localStorage.getItem('password');
+    let person = {
+        name: name.value,
+        password: pass.value
     }
+    
+    let serializedPerson = JSON.stringify(person); // in JSON
+    localStorage.setItem(localStorage.getItem('name'), serializedPerson);
+    console.log(JSON.parse(localStorage.getItem(localStorage.getItem('name'))));
 
     reset.addEventListener('click', function() {
         localStorage.clear();
