@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', function () {
 
     let checkbox = document.getElementById('rememberMe'),
         reset = document.getElementById('reset'),
@@ -15,31 +15,31 @@ window.addEventListener('DOMContentLoaded', function() {
         localStorage.removeItem('isChecked');
     }
 
-    checkbox.addEventListener('click', function() {
+    checkbox.addEventListener('click', function () {
         localStorage.setItem('isChecked', true);
         if (checkbox.checked == false) {
             localStorage.setItem('isChecked', false);
         }
     });
 
-    name.onchange = function() {
+    name.oninput = function () {
         localStorage.setItem('name', this.value);
     };
 
-    pass.onchange = function() {
+    pass.oninput = function () {
         localStorage.setItem('password', this.value);
     };
 
     let person = {
-        name: name.value,
-        password: pass.value
-    }
-    
+        name: localStorage.getItem('name'),
+        password: localStorage.getItem('password')
+    };
+
     let serializedPerson = JSON.stringify(person); // in JSON
     localStorage.setItem(localStorage.getItem('name'), serializedPerson);
     console.log(JSON.parse(localStorage.getItem(localStorage.getItem('name'))));
 
-    reset.addEventListener('click', function() {
+    reset.addEventListener('click', function () {
         localStorage.clear();
     });
 
